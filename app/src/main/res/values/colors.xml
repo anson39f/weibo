@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#ff8200</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffff</color>
+    <color name="alpha_white">#49ffffff</color>
+    <color name="black">#000000</color>
+    <color name="alpha_black">#49000000</color>
+    <color name="red">#ff403c</color>
+    <color name="geek_green">#35b558</color>
+
+    <color name="primary_dark">#5d4037</color>
+    <color name="primary">#795548</color>
+    <color name="primary_light">#d7ccc8</color>
+    <color name="orange">#ff8200</color>
+    <color name="orange_alpha">#66ff8200</color>
+    <color name="orange_dark">#d46303</color>
+
+    <color name="txt_black">#232323</color>
+    <color name="txt_gray">#565656</color>
+    <color name="txt_light_gray">#898989</color>
+
+    <color name="bg_gray">#f2f2f2</color>
+    <color name="bg_gray_light">#fcfcfc</color>
+    <color name="bg_gray_dark">#e8e8e8</color>
+    <color name="bg_agray">#49dddddd</color>
+    <color name="bg_gray_pressed">#e8e8e8</color>
+    <color name="txt_at_blue">#507daf</color>
+    <color name="bg_gray_bar">#f9f9f9</color>
+    <color name="divider_gray2">#d7d7d7</color>
+    <color name="divider_gray">#EFEFEF</color>
+
+    <color name="searchHeadView_toolbar_bg">#E3E4E6</color>
+    <color name="searchHeadView_inner_bg">#FFFFFF</color>
+    <color name="discover_fragment_searchHeadView_inner_bg">#E3E4E6</color>
+
+
+    <!-- 这里是文字的颜色和app的主题色 -->
+    <color name="login_text_color">#BDBDBD</color>
+    <color name="sub_textcolor">#9e9e9e</color>
+    <color name="main_textcolor">#717272</color>
+    <color name="maincolor">#ff008577</color>
+    <color name="maincutalph">#50008577</color>
+    <!-- 横细线的颜色  -->
+    <color name="viewcolor">#d2d2d2</color>
+    <!--背景色-->
+    <color name="color_F3F3F3">#F3F3F3</color>
+    <color name="background">@color/color_F3F3F3</color>
+    <!-- 字体色--><!-- 字体1，重要级，列表，组件文字-->
+    <color name="color_3c3c3c">#3c3c3c</color>
+    <!-- 字体2，输入框提示文字-->
+    <color name="color_bababa">#bababa</color>
+    <!-- 字体3，列表信息文字-->
+    <color name="color_999999">#999999</color>
+    <!--线框，按钮描边-->
+    <color name="color_dddddd">#dddddd</color>
+    <!-- 分割线颜色，选中色块-->
+    <color name="color_e8e8e8">#e8e8e8</color>
+    <color name="text_main">@color/color_3c3c3c</color>
+    <color name="text_sub">@color/color_999999</color>
+    <color name="text_sub1">@color/color_bababa</color>
+
+    <drawable name="def_image">@color/color_999999</drawable>
+</resources>

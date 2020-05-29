@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/fg_regist"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:widget="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_head"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/head_pistion"/>
+
+    <RelativeLayout
+        android:id="@+id/rela_rephone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_border_color_black"
+        >
+
+        <ImageView
+            android:id="@+id/usericon2"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/iconmbile"/>
+
+        <com.eminem.weibo.widget.ClearEditText
+            android:id="@+id/cdName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/usericon2"
+            android:background="@null"
+            android:hint="请输入账号"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="13sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rela_rephone3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_border_color_black"
+        >
+
+        <ImageView
+            android:id="@+id/usericon3"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/iconmbile"/>
+
+        <com.eminem.weibo.widget.ClearEditText
+            android:id="@+id/cENickName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/usericon3"
+            android:background="@null"
+            android:hint="请输入昵称"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="13sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rela_rephone6"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_border_color_black"
+        >
+
+        <ImageView
+            android:id="@+id/usericon6"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/iconmbile"/>
+
+        <com.eminem.weibo.widget.ClearEditText
+            android:id="@+id/cEEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/usericon6"
+            android:background="@null"
+            android:hint="请输入邮箱"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="13sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rela_repass"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_border_color_black"
+        >
+
+        <ImageView
+            android:id="@+id/codeicon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@mipmap/codeicon"/>
+
+        <com.eminem.weibo.widget.ClearEditText
+            android:id="@+id/ed_passwd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/codeicon"
+            android:background="@null"
+            android:hint="请输入您的密码"
+            android:inputType="textPassword"
+            android:text=""
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="13sp"/>
+    </RelativeLayout>
+
+    <com.eminem.weibo.widget.PaperButton
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        widget:paper_color="@color/maincolor"
+        widget:paper_corner_radius="19dp"
+        widget:paper_text="注册"
+        widget:paper_text_color="@color/white"
+        />
+
+
+</LinearLayout>
