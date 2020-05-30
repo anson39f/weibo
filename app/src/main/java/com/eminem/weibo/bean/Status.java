@@ -1,14 +1,18 @@
 package com.eminem.weibo.bean;
 
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 public class Status extends BaseBean {
-    private String created_at;
+//    @SerializedName("createTime")
+    private String createTime;
     private long id;
     private String mid;
     private String idstr;
-    private String text;
+//    @SerializedName("content")
+    private String content;
     private int source_allowclick;
     private int source_type;
     private String source;
@@ -23,7 +27,9 @@ public class Status extends BaseBean {
     private String original_pic;
     private Object geo;
     private int reposts_count;
+    @SerializedName("commentCount")
     private int comments_count;
+    @SerializedName("likeCount")
     private int attitudes_count;
     private User user;
     private Status retweeted_status;
@@ -31,13 +37,14 @@ public class Status extends BaseBean {
     private int mlevel;
     private Visible visible;
     private ArrayList<Object> darwin_tags;
+    public Category category;
 
     public String getCreated_at() {
-        return created_at;
+        return createTime;
     }
 
     public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+        this.createTime = created_at;
     }
 
     public long getId() {
@@ -64,12 +71,12 @@ public class Status extends BaseBean {
         this.idstr = idstr;
     }
 
-    public String getText() {
-        return text;
+    public String getContent() {
+        return content;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public int getSource_allowclick() {

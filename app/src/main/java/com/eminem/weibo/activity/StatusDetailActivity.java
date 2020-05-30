@@ -229,18 +229,18 @@ public class StatusDetailActivity extends BaseActivity implements View.OnClickLi
 
         setImages(status, include_status_image, gv_images, iv_image);
 
-        if (TextUtils.isEmpty(status.getText())) {
+        if (TextUtils.isEmpty(status.getContent())) {
             tv_content.setVisibility(View.GONE);
         } else {
             tv_content.setVisibility(View.VISIBLE);
-            SpannableString weiboContent = StringUtils.getWeiboContent(this, tv_content, status.getText());
+            SpannableString weiboContent = StringUtils.getWeiboContent(this, tv_content, status.getContent());
             tv_content.setText(weiboContent);
         }
 
         Status retweetedStatus = status.getRetweeted_status();
         if (retweetedStatus != null) {
             include_retweeted_status.setVisibility(View.VISIBLE);
-            String retweetContent = "@" + retweetedStatus.getUser().getName() + ":" + retweetedStatus.getText();
+            String retweetContent = "@" + retweetedStatus.getUser().getName() + ":" + retweetedStatus.getContent();
             SpannableString weiboContent = StringUtils.getWeiboContent(this, tv_retweeted_content, retweetContent);
             tv_retweeted_content.setText(weiboContent);
             setImages(retweetedStatus, fl_retweeted_imageview, gv_retweeted_images, iv_retweeted_image);

@@ -17,23 +17,21 @@ import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.eminem.weibo.BaseFragment;
 import com.eminem.weibo.R;
 import com.eminem.weibo.adapter.StatusAdapter;
+import com.eminem.weibo.api.ResData;
+import com.eminem.weibo.api.remote.BaseService;
+import com.eminem.weibo.base.net.RetrofitService;
 import com.eminem.weibo.bean.Status;
-import com.eminem.weibo.bean.StatusTimeLineResponse;
-import com.eminem.weibo.constants.AccessTokenKeeper;
-import com.eminem.weibo.utils.AsyncHttpUtils;
 import com.eminem.weibo.utils.TitleBuilder;
 import com.eminem.weibo.utils.ToastUtils;
-import com.google.gson.Gson;
-import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.TextHttpResponseHandler;
-import com.orhanobut.logger.Logger;
-import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class WeiboFragment extends BaseFragment {
@@ -128,44 +126,34 @@ public class WeiboFragment extends BaseFragment {
     }
 
     private void initData(final int page) {
-        Oauth2AccessToken mAccessToken = AccessTokenKeeper.readAccessToken(activity);
-        String token = mAccessToken.getToken();
-        RequestParams params = new RequestParams();
-        params.put("page", page);
-        params.put("access_token", token);
-        AsyncHttpUtils.get("statuses/home_timeline.json", params, new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Toast.makeText(activity, responseString, Toast.LENGTH_LONG).show();
-            }
+        RetrofitService.getService(BaseService.class).search("").subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                /*回调线程*/
+                .observeOn(AndroidSchedulers.mainThread())
+                /*结果判断*/
+                .subscribe(new Observer<ResData<List<Status>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                Logger.json(responseString);
-                StatusTimeLineResponse timeLineResponse = new Gson().fromJson(responseString, StatusTimeLineResponse.class);
-//              lvHome.setAdapter(new StatusAdapter(activity, timeLineResponse.getStatuses()));
+                    }
 
-                if (page == 1) {
-                    statuses.clear();
-                }
-                curPage = page;
-//              lvHome.setAdapter(new StatusAdapter(activity, timeLineResponse.getStatuses()));
-                addStatus(new Gson().fromJson(responseString, StatusTimeLineResponse.class));
+                    @Override
+                    public void onNext(ResData<List<Status>> listResData) {
+                        statuses.clear();
+                        statuses.addAll(listResData.result);
+                        adapter.notifyDataSetChanged();
+                    }
 
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
-
-
-    private void addStatus(StatusTimeLineResponse resBean) {
-        for (Status status : resBean.getStatuses()) {
-            if (!statuses.contains(status)) {
-                statuses.add(status);
-            }
-        }
-        adapter.notifyDataSetChanged();
-
-    }
-
 
 }

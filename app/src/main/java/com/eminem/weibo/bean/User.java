@@ -35,7 +35,7 @@ public class User extends BaseBean {
     private boolean verified;
     private int verified_type;
     private String remark;
-    private Status status;
+//    private Status status;
     private int ptype;
     private boolean allow_all_comment;
     private String avatar_large;
@@ -274,13 +274,13 @@ public class User extends BaseBean {
         this.remark = remark;
     }
 
-    public Status getStatus() {
-        return status;
-    }
+//    public Status getStatus() {
+//        return status;
+//    }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+//    public void setStatus(Status status) {
+//        this.status = status;
+//    }
 
     public int getPtype() {
         return ptype;

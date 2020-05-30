@@ -103,7 +103,7 @@ public class MessageDetailsAdapter extends BaseAdapter {
 
         User quoteUser = status.getUser();
         String quoteName = quoteUser.getName();//引用name
-        String quoteText = status.getText();//引用正文
+        String quoteText = status.getContent();//引用正文
         //引用图片，如有正文图片，则引入
         ArrayList<PicUrls> pic_urls = status.getPic_urls();
         if (!(pic_urls == null)) {

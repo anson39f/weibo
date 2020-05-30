@@ -19,7 +19,6 @@ import okhttp3.RequestBody;
  */
 public class BaseAppApi {
 
-
     public static BaseService getBaseService() {
         return RetrofitService.getService(BaseService.class);
     }
@@ -27,15 +26,13 @@ public class BaseAppApi {
     /**
      * 登陆
      *
-     * @param view
      * @param name
-     * @param pasword
-     * @param listener
+     * @param password
      */
-    public static void login(IBaseView view, String name, String pasword, String type,
+    public static void login(String name, String password,
                              HttpListener<User>
                                      listener) {
-        RetrofitService.request(getBaseService().loginUser(name, MD5Util.MD5(pasword)), listener);
+        RetrofitService.request(getBaseService().loginUser(name, MD5Util.MD5(password)), listener);
     }
 
     public static void getUser(String name,
@@ -72,96 +69,14 @@ public class BaseAppApi {
         RetrofitService.request(getBaseService().updateNickname(account, nickName), listener);
     }
 
-    public static void modify(IBaseView view, String type, String account,
-                              String name,
-                              String phoneNumber, String address,
-                              String dateOfBirth,
-                              HttpListener<User>
-                                      listener) {
-        if ("2".equals(type)) {
-            RetrofitService.request(getBaseService().modifyUser(account, name, phoneNumber, address,
-                    dateOfBirth), listener);
-        } else {
-            RetrofitService.request(getBaseService().modifyWaiter(account, name,
-                    phoneNumber, address,
-                    dateOfBirth), view.bindToLife(),
-                    listener);
-        }
-    }
 
-    /**
-     * 更新密码
-     *
-     * @param view
-     * @param password
-     * @param listener
-     */
-    public static void updatePassword(IBaseView view, String type, String name, String password,
-                                      HttpListener<Void> listener) {
-        if ("2".equals(type)) {
-            RetrofitService.request(getBaseService().updateUserPassword(name, MD5Util.MD5(password)),
-                    listener);
-        } else {
-            RetrofitService.request(getBaseService().updateWaiterPassword(name, MD5Util.MD5(password)), view.bindToLife(),
-                    listener);
-        }
-    }
-
-
-    //呼叫物业
-    public static void addWuye(IBaseView view, String accountId,
+    //发微博
+    public static void publish(String accountId,
                                String content,
+                               String categoryId,
                                HttpListener<Void>
                                        listener) {
-        if (view == null) {
-            RetrofitService.request(getBaseService().addWuye(accountId, content), listener);
-        } else {
-            RetrofitService.request(getBaseService().addWuye(accountId, content), view.bindToLife(),
-                    listener);
-        }
-    }
-
-    //呼叫医疗服务
-    public static void addDoctor(IBaseView view, String accountId,
-                                 String content,
-                                 HttpListener<Void>
-                                         listener) {
-        if (view == null) {
-            RetrofitService.request(getBaseService().addDoctor(accountId, content), listener);
-        } else {
-            RetrofitService.request(getBaseService().addDoctor(accountId, content), view.bindToLife(),
-                    listener);
-        }
-    }
-
-    //紧急呼叫
-    public static void addSos(IBaseView view, String accountId,
-                              String content,
-                              HttpListener<Void>
-                                      listener) {
-        if (view == null) {
-            RetrofitService.request(getBaseService().addSos(accountId, content), listener);
-        } else {
-            RetrofitService.request(getBaseService().addSos(accountId, content), view.bindToLife(),
-                    listener);
-        }
-    }
-
-
-    //打卡
-    public static void addCheck(IBaseView view, String type, String accountId,
-                                HttpListener<Void>
-                                        listener) {
-        RetrofitService.request(getBaseService().addUserCheck(accountId), view.bindToLife(), listener);
-    }
-
-
-    //今日考勤
-    public static void addTodaySos(IBaseView view,
-                                   HttpListener<Void>
-                                           listener) {
-        RetrofitService.request(getBaseService().addWaiterCheck(), view.bindToLife(),
-                listener);
+        RetrofitService.request(getBaseService().publish(accountId, content, categoryId), listener);
     }
 
 

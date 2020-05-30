@@ -59,7 +59,7 @@ public class LoginFragment extends BaseRxFragment {
         } else if (userpass.getText().toString().equals("")) {
             ToastUtils.showShortToast(mContext, "请先输入密码");
         } else {
-            BaseAppApi.login(this, userph.getText().toString(), userpass.getText().toString(), type,
+            BaseAppApi.login(userph.getText().toString(), userpass.getText().toString(),
                     new HttpListener<User>() {
                         @Override
                         public void onStart() {

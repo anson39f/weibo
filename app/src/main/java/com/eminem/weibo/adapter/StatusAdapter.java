@@ -2,7 +2,6 @@ package com.eminem.weibo.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,7 +23,6 @@ import com.eminem.weibo.activity.WriteCommentActivity;
 import com.eminem.weibo.bean.PicUrls;
 import com.eminem.weibo.bean.Status;
 import com.eminem.weibo.bean.User;
-import com.eminem.weibo.utils.DateUtils;
 import com.eminem.weibo.utils.StringUtils;
 import com.eminem.weibo.utils.ToastUtils;
 
@@ -107,13 +105,14 @@ public class StatusAdapter extends BaseAdapter {
         final User user = status.getUser();
         Glide.with(context).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation()).placeholder(R.drawable.head_pistion)).into(holder.iv_head);
         holder.tv_head_name.setText(user.getName());
-        if (status.getSource().isEmpty()) {
-            holder.tv_head_desc.setText(DateUtils.getShortTime(status.getCreated_at()));
-        } else {
-            holder.tv_head_desc.setText(DateUtils.getShortTime(status.getCreated_at()) + " 来自 " + Html.fromHtml(status.getSource()));
-        }
+//        if (status.getSource().isEmpty()) {
+//            holder.tv_head_desc.setText(DateUtils.getShortTime(status.getCreated_at()));
+//        } else {
+//            holder.tv_head_desc.setText(DateUtils.getShortTime(status.getCreated_at()) + " 来自 " + Html.fromHtml(status.getSource()));
+//        }
+        holder.tv_head_desc.setText(status.getCreated_at());
         //微博正文
-        holder.tv_content.setText(StringUtils.getWeiboContent(context, holder.tv_content, status.getText()));
+        holder.tv_content.setText(StringUtils.getWeiboContent(context, holder.tv_content, status.getContent()));
         setImages(status, holder.include_status_image, holder.gv_images, holder.iv_image);
 
         //转发内容
@@ -121,7 +120,7 @@ public class StatusAdapter extends BaseAdapter {
         if (retweeted_status != null) {
             User retUser = retweeted_status.getUser();
             holder.include_retweeted_status.setVisibility(View.VISIBLE);
-            String retweetedContent = "@" + retUser.getName() + ":" + retweeted_status.getText();
+            String retweetedContent = "@" + retUser.getName() + ":" + retweeted_status.getContent();
             holder.tv_retweeted_content.setText(StringUtils.getWeiboContent(context, holder.tv_retweeted_content, retweetedContent));
             setImages(retweeted_status, holder.include_retweeted_status_image, holder.gv_retweeted_images, holder.iv_retweeted_image);
         } else {
