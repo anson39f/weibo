@@ -25,7 +25,6 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 /**
- * Created by eminem on 2017/6/6.
  */
 
 public class StatusCommentAdapter extends BaseAdapter {

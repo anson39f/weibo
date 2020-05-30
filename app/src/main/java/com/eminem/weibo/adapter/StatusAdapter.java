@@ -115,7 +115,7 @@ public class StatusAdapter extends BaseAdapter {
         holder.tv_content.setText(StringUtils.getWeiboContent(context, holder.tv_content, status.getContent()));
         setImages(status, holder.include_status_image, holder.gv_images, holder.iv_image);
 
-        //转发内容
+        //评分内容
         final Status retweeted_status = status.getRetweeted_status();
         if (retweeted_status != null) {
             User retUser = retweeted_status.getUser();
@@ -127,12 +127,12 @@ public class StatusAdapter extends BaseAdapter {
             holder.include_retweeted_status.setVisibility(View.GONE);
         }
 
-        //转发评论点赞
-        holder.tv_share_bottom.setText(status.getReposts_count() == 0 ? "转发" : status.getReposts_count() + "");
+        //评分评论点赞
+        holder.tv_share_bottom.setText(status.getReposts_count() == 0 ? "评分" : status.getReposts_count() + "");
         holder.ll_share_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showToast(context, "转发", Toast.LENGTH_LONG);
+                ToastUtils.showToast(context, "评分", Toast.LENGTH_LONG);
             }
         });
         holder.tv_like_bottom.setText(status.getAttitudes_count() == 0 ? "赞" : status.getAttitudes_count() + "");

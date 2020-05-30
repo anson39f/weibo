@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="vertical">
 
     <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1px"-->
-        <!--android:background="@color/divider_gray" />-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1px"-->
+    <!--android:background="@color/divider_gray" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,20 +29,20 @@
                 android:id="@+id/iv_weibo_bottom_retweet"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/bottom_retweet" />
+                android:src="@drawable/bottom_retweet"/>
 
             <TextView
                 android:id="@+id/tv_weibo_bottom_retweet"
                 style="@style/TextViewBody"
                 android:layout_marginLeft="8dp"
-                android:text="转发"
-                android:textColor="@color/txt_gray" />
+                android:text="评分"
+                android:textColor="@color/txt_gray"/>
         </LinearLayout>
 
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="@color/divider_gray" />
+            android:background="@color/divider_gray"/>
 
         <LinearLayout
             android:id="@+id/ll_comment_bottom"
@@ -57,20 +57,20 @@
                 android:id="@+id/iv_weibo_bottom_comment"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/bottom_comment" />
+                android:src="@drawable/bottom_comment"/>
 
             <TextView
                 android:id="@+id/tv_weibo_bottom_comment"
                 style="@style/TextViewBody"
                 android:layout_marginLeft="8dp"
                 android:text="评论"
-                android:textColor="@color/txt_gray" />
+                android:textColor="@color/txt_gray"/>
         </LinearLayout>
 
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="@color/divider_gray" />
+            android:background="@color/divider_gray"/>
 
         <LinearLayout
             android:id="@+id/ll_like_bottom"
@@ -85,20 +85,20 @@
                 android:id="@+id/iv_weibo_bottom_like"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/bottom_like" />
+                android:src="@drawable/bottom_like"/>
 
             <TextView
                 android:id="@+id/tv_weibo_bottom_like"
                 style="@style/TextViewBody"
                 android:layout_marginLeft="8dp"
                 android:text="点赞"
-                android:textColor="@color/txt_gray" />
+                android:textColor="@color/txt_gray"/>
         </LinearLayout>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="35px"
-        android:background="@color/divider_gray" />
+        android:background="@color/divider_gray"/>
 
 </LinearLayout>

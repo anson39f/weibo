@@ -1,13 +1,16 @@
 package com.eminem.weibo.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Created by eminem on 2017/6/6.
- * comments/mentions
+ * 评论
  */
 
 public class Comment extends BaseBean {
+    @SerializedName("createTime")
     private String created_at;
     private long id;
+    @SerializedName("content")
     private String text;
     private int source_allowclick;
     private int source_type;
@@ -15,6 +18,7 @@ public class Comment extends BaseBean {
     private User user;
     private String mid;
     private String idstr;
+    @SerializedName("weibo")
     private Status status;
     private int floor_num;
     public String getCreated_at() {

@@ -3,7 +3,6 @@ package com.eminem.weibo.bean;
 import java.util.List;
 
 /**
- * Created by eminem on 2017/6/7.
  */
 
 public class CommentsResponse {

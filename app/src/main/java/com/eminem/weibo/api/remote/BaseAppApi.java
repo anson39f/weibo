@@ -79,5 +79,14 @@ public class BaseAppApi {
         RetrofitService.request(getBaseService().publish(accountId, content, categoryId), listener);
     }
 
+    //发评论
+    public static void comment(String accountId,
+                               String content,
+                               String weiboId,
+                               HttpListener<Void>
+                                       listener) {
+        RetrofitService.request(getBaseService().comment(accountId, content, weiboId), listener);
+    }
+
 
 }

@@ -2,7 +2,6 @@ package com.eminem.weibo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,6 +25,9 @@ import com.eminem.weibo.BaseActivity;
 import com.eminem.weibo.R;
 import com.eminem.weibo.adapter.StatusCommentAdapter;
 import com.eminem.weibo.adapter.StatusGridImgsAdapter;
+import com.eminem.weibo.api.ResData;
+import com.eminem.weibo.api.remote.BaseService;
+import com.eminem.weibo.base.net.RetrofitService;
 import com.eminem.weibo.bean.Comment;
 import com.eminem.weibo.bean.CommentsResponse;
 import com.eminem.weibo.bean.PicUrls;
@@ -33,22 +35,20 @@ import com.eminem.weibo.bean.Status;
 import com.eminem.weibo.bean.User;
 import com.eminem.weibo.constants.AccessTokenKeeper;
 import com.eminem.weibo.constants.WeiboConstants;
-import com.eminem.weibo.utils.AsyncHttpUtils;
-import com.eminem.weibo.utils.DateUtils;
 import com.eminem.weibo.utils.StringUtils;
 import com.eminem.weibo.utils.TitleBuilder;
 import com.eminem.weibo.utils.ToastUtils;
 import com.eminem.weibo.widget.WrapHeightGridView;
-import com.google.gson.Gson;
-import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.TextHttpResponseHandler;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.openapi.CommentsAPI;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
@@ -225,7 +225,7 @@ public class StatusDetailActivity extends BaseActivity implements View.OnClickLi
         User user = status.getUser();
         Glide.with(this).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation())).into(iv_head);
         tv_head_name.setText(user.getName());
-        tv_head_desc.setText(DateUtils.getShortTime(status.getCreated_at()) + " 来自" + Html.fromHtml(status.getSource()));
+//        tv_head_desc.setText(DateUtils.getShortTime(status.getCreated_at()) + " 来自" + Html.fromHtml(status.getSource()));
 
         setImages(status, include_status_image, gv_images, iv_image);
 
@@ -284,33 +284,43 @@ public class StatusDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void loadComments(final int page) {
-        Oauth2AccessToken mAccessToken = AccessTokenKeeper.readAccessToken(this);
-        String token = mAccessToken.getToken();
         long id = status.getId();
-        RequestParams params = new RequestParams();
-        params.put("page", page);
-        params.put("access_token", token);
-        params.put("id", id);
-        AsyncHttpUtils.get("comments/show.json", params, new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-            }
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                if (page == 1) {
-                    comments.clear();
-                }
-                curPage = page;
-                CommentsResponse commentsResponse = new Gson().fromJson(responseString, CommentsResponse.class);
-                // 更新评论数信息
-                tv_comment_bottom.setText(commentsResponse.getTotal_number() == 0 ? "评论" : commentsResponse.getTotal_number() + "");
-                rb_comments.setText("评论 " + commentsResponse.getTotal_number());
-                // 将获取的评论信息添加到列表上
-                addData(commentsResponse);
+        RetrofitService.getService(BaseService.class).findCommentByWeibo(id + "").subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                /*回调线程*/
+                .observeOn(AndroidSchedulers.mainThread())
+                /*结果判断*/
+                .subscribe(new Observer<ResData<List<Comment>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            }
-        });
+                    }
+
+                    @Override
+                    public void onNext(ResData<List<Comment>> listResData) {
+                        comments.clear();
+                        CommentsResponse commentsResponse = new CommentsResponse();
+                        commentsResponse.setComments(listResData.result);
+                        commentsResponse.setTotal_number(listResData.result.size());
+                        // 更新评论数信息
+                        tv_comment_bottom.setText(commentsResponse.getTotal_number() == 0 ? "评论" : commentsResponse.getTotal_number() + "");
+                        rb_comments.setText("评论 " + commentsResponse.getTotal_number());
+                        // 将获取的评论信息添加到列表上
+                        addData(commentsResponse);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 

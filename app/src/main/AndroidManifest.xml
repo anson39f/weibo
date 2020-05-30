@@ -45,6 +45,8 @@
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.AddActivity"/>
         <activity android:name=".base.ui.activity.EnvSettingActivity"/>
+        <activity android:name=".activity.SearchActivity"/>
+        <activity android:name=".activity.WriteCommentActivity"/>
     </application>
 
 </manifest>

@@ -7,20 +7,22 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.eminem.weibo.R;
-import com.eminem.weibo.bean.UserItem;
+import com.eminem.weibo.bean.User;
+import com.eminem.weibo.widget.ImageLoader;
 
 import java.util.List;
 
 /**
  */
 
-public class UserItemAdapter extends BaseAdapter {
+public class UserListAdapter extends BaseAdapter {
     private Context context;
-    private List<UserItem> datas;
+    private List<User> datas;
     private OnItemClickListener onItemClickListener;
 
-    public UserItemAdapter(Context context, List<UserItem> datas) {
+    public UserListAdapter(Context context, List<User> datas) {
         this.context = context;
         this.datas = datas;
     }
@@ -45,30 +47,30 @@ public class UserItemAdapter extends BaseAdapter {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = View.inflate(context, R.layout.item_user, null);
+            convertView = View.inflate(context, R.layout.item_user_list, null);
             holder.v_divider = convertView.findViewById(R.id.v_divider);
             holder.ll_content = convertView.findViewById(R.id.ll_content);
-            holder.iv_left = (ImageView) convertView.findViewById(R.id.iv_left);
-            holder.tv_subhead = (TextView) convertView.findViewById(R.id.tv_subhead);
+            holder.iv_head = (ImageView) convertView.findViewById(R.id.iv_head);
+            holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
             holder.tv_caption = (TextView) convertView.findViewById(R.id.tv_caption);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        final UserItem item = (UserItem) getItem(position);
+        final User item = (User) getItem(position);
 
-        holder.iv_left.setImageResource(item.getLeftImg());
-        holder.tv_subhead.setText(item.getSubhead());
-        holder.tv_caption.setText(item.getCaption());
+        //        holder.iv_head.setImageResource(item.getAvatar_hd());
+        ImageLoader.loadImage(Glide.with(context), holder.iv_head, item.getAvatar_hd());
+        holder.tvName.setText(item.getName());
 
-        holder.v_divider.setVisibility(item.isShowTopDivider() ? View.VISIBLE : View.GONE);
+//        holder.v_divider.setVisibility(item.isShowTopDivider() ? View.VISIBLE : View.GONE);
         holder.ll_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
                     onItemClickListener.onClick(position, item);
                 }
-//                ToastUtils.showToast(context, "item click position = " + position, Toast.LENGTH_SHORT);
+                //                ToastUtils.showToast(context, "item click position = " + position, Toast.LENGTH_SHORT);
             }
         });
 
@@ -79,8 +81,8 @@ public class UserItemAdapter extends BaseAdapter {
     public static class ViewHolder {
         public View v_divider;
         public View ll_content;
-        public ImageView iv_left;
-        public TextView tv_subhead;
+        public ImageView iv_head;
+        public TextView tvName;
         public TextView tv_caption;
     }
 
@@ -90,6 +92,6 @@ public class UserItemAdapter extends BaseAdapter {
     }
 
     public interface OnItemClickListener {
-        void onClick(int position, UserItem item);
+        void onClick(int position, User item);
     }
 }

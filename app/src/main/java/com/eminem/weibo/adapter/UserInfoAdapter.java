@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by eminem on 2017/7/20.
  */
 
 public class UserInfoAdapter extends FragmentPagerAdapter {

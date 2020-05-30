@@ -3,6 +3,7 @@ package com.eminem.weibo.api.remote;
 
 import com.eminem.weibo.api.ResData;
 import com.eminem.weibo.bean.Category;
+import com.eminem.weibo.bean.Comment;
 import com.eminem.weibo.bean.Status;
 import com.eminem.weibo.bean.User;
 
@@ -55,8 +56,18 @@ public interface BaseService {
     @GET("weibo/weibo/search")
     Observable<ResData<List<Status>>> search(@Query("keys") String keys);
 
+    @GET("weibo/user/search")
+    Observable<ResData<List<User>>> searchUser(@Query("username") String keys);
+
     @POST("weibo/weibo/getCategory")
     Observable<ResData<List<Category>>> getCategory();
 
 
+    @POST("weibo/weibo/comment")
+    Observable<ResData<Void>> comment(@Query("username") String username,
+                                      @Query("content") String content,
+                                      @Query("weiboId") String weiboId);
+
+    @POST("weibo/weibo/findCommentByWeibo")
+    Observable<ResData<List<Comment>>> findCommentByWeibo(@Query("weiboId") String weiboId);
 }

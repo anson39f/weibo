@@ -29,7 +29,6 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 import static com.eminem.weibo.R.id.tv_message_details;
 
 /**
- * Created by eminem on 2017/8/9.
  * 消息页adapter
  */
 
