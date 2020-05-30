@@ -75,7 +75,8 @@ public class LoginFragment extends BaseRxFragment {
                         @Override
                         public void onSuccess(User user) {
                             //                            user.type = type;
-                            BaseApplication.setUser(user);
+//                            BaseApplication.setUser(user);
+                            ((BaseApplication) getActivity().getApplication()).currentUser = user;
                             SPUtils.setLogin(mContext, true);
                             PreferencesUtils.clear(getContext(), "user");
                             PreferencesUtils.putString(getContext(), "user", JsonParser.toJson(user));

@@ -34,7 +34,7 @@
                     android:scheme="myapp" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.WriteCommentActivity" />
+        <activity android:name=".activity.UserInfoEditActivity" />
         <activity android:name=".activity.StatusDetailActivity" />
         <activity android:name=".activity.UserInfoActivity" />
         <activity android:name=".activity.NewUserInfoActivity" />
@@ -43,7 +43,7 @@
         <activity android:name=".activity.ImageBrowserActivity" />
         <activity android:name=".activity.MessageDetailsActivity" />
         <activity android:name=".activity.SettingActivity" />
-        <activity android:name=".activity.AddActivity"></activity>
+        <activity android:name=".activity.AddActivity"/>
         <activity android:name=".base.ui.activity.EnvSettingActivity"/>
     </application>
 

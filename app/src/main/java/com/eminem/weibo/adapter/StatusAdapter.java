@@ -105,7 +105,7 @@ public class StatusAdapter extends BaseAdapter {
         //微博用户
         final Status status = (Status) getItem(position);
         final User user = status.getUser();
-        Glide.with(context).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation(context)).placeholder(R.drawable.head_pistion)).into(holder.iv_head);
+        Glide.with(context).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation()).placeholder(R.drawable.head_pistion)).into(holder.iv_head);
         holder.tv_head_name.setText(user.getName());
         if (status.getSource().isEmpty()) {
             holder.tv_head_desc.setText(DateUtils.getShortTime(status.getCreated_at()));

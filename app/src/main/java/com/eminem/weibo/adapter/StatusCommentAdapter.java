@@ -70,7 +70,7 @@ public class StatusCommentAdapter extends BaseAdapter {
         }
         Comment comment = (Comment) getItem(position);
         final User user = comment.getUser();
-        Glide.with(context).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation(this.context))).into(holder.iv_head);
+        Glide.with(context).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation())).into(holder.iv_head);
         holder.tv_head_name.setText(user.getName());
         holder.tv_head_desc.setText(DateUtils.getShortTime(comment.getCreated_at()));
         SpannableString weiboContent = StringUtils.getWeiboContent(context, holder.tv_comment, comment.getText());

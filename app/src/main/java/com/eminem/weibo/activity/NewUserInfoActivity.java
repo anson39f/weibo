@@ -24,6 +24,7 @@ import com.eminem.weibo.bean.User;
 import com.eminem.weibo.constants.AccessTokenKeeper;
 import com.eminem.weibo.fragment.userinfofragment.UserHomeFragment;
 import com.eminem.weibo.utils.AsyncHttpUtils;
+import com.eminem.weibo.widget.ImageLoader;
 import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -38,7 +39,7 @@ import static com.eminem.weibo.BaseApplication.getContext;
 public class NewUserInfoActivity extends AppCompatActivity {
     public static final String TAG = "NewUserInfoActivity";
     //用户个人信息
-    private ImageView iv_user_head;
+    private ImageView iv_user_head, backdrop;
     private TextView tv_user_name;
     private TextView tv_user_fans;
     private TextView tv_user_desc;
@@ -62,7 +63,6 @@ public class NewUserInfoActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_new_user_info);
         screenName = getIntent().getStringExtra("screen_name");
-        Log.d(TAG, screenName);
 
         if (TextUtils.isEmpty(screenName)) {
             isCurrentUser = true;
@@ -105,7 +105,8 @@ public class NewUserInfoActivity extends AppCompatActivity {
             return;
         }
         tv_user_name.setText(user.getName());
-        Glide.with(this).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation(this)).placeholder(R.drawable.head_pistion)).into(iv_user_head);
+        Glide.with(this).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation()).placeholder(R.drawable.head_pistion)).into(iv_user_head);
+        ImageLoader.loadImage(Glide.with(this), backdrop, user.getAvatar_hd());
         tv_user_fans.setText("关注  " + user.getFriends_count() + " | " + "粉丝  " + user.getFollowers_count());
         tv_user_desc.setText("简介:" + user.getDescription());
     }
@@ -136,6 +137,7 @@ public class NewUserInfoActivity extends AppCompatActivity {
 
     private void initUserInfo() {
         iv_user_head = (ImageView) findViewById(R.id.iv_user_head);
+        backdrop = (ImageView) findViewById(R.id.backdrop);
         tv_user_name = (TextView) findViewById(R.id.tv_user_name);
         tv_user_fans = (TextView) findViewById(R.id.tv_user_fans);
         tv_user_desc = (TextView) findViewById(R.id.tv_user_desc);

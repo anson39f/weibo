@@ -6,11 +6,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.eminem.weibo.R;
 import com.eminem.weibo.bean.UserItem;
-import com.eminem.weibo.utils.ToastUtils;
 
 import java.util.List;
 
@@ -21,6 +19,7 @@ import java.util.List;
 public class UserItemAdapter extends BaseAdapter {
     private Context context;
     private List<UserItem> datas;
+    private OnItemClickListener onItemClickListener;
 
     public UserItemAdapter(Context context, List<UserItem> datas) {
         this.context = context;
@@ -57,7 +56,7 @@ public class UserItemAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        UserItem item = (UserItem) getItem(position);
+        final UserItem item = (UserItem) getItem(position);
 
         holder.iv_left.setImageResource(item.getLeftImg());
         holder.tv_subhead.setText(item.getSubhead());
@@ -67,7 +66,10 @@ public class UserItemAdapter extends BaseAdapter {
         holder.ll_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showToast(context, "item click position = " + position, Toast.LENGTH_SHORT);
+                if (onItemClickListener != null) {
+                    onItemClickListener.onClick(position, item);
+                }
+//                ToastUtils.showToast(context, "item click position = " + position, Toast.LENGTH_SHORT);
             }
         });
 
@@ -81,5 +83,14 @@ public class UserItemAdapter extends BaseAdapter {
         public ImageView iv_left;
         public TextView tv_subhead;
         public TextView tv_caption;
+    }
+
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener {
+        void onClick(int position, UserItem item);
     }
 }

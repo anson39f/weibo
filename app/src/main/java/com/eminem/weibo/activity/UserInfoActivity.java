@@ -265,7 +265,7 @@ public class UserInfoActivity extends BaseActivity implements RadioGroup.OnCheck
             return;
         }
 //        tv_name.setText(user.getName());
-        Glide.with(this).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation(this))).into(iv_avatar);
+        Glide.with(this).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation())).into(iv_avatar);
         tv_follows.setText("关注 " + user.getFriends_count());
         tv_fans.setText("粉丝 " + user.getFollowers_count());
         tv_sign.setText("简介:" + user.getDescription());

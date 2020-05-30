@@ -223,7 +223,7 @@ public class StatusDetailActivity extends BaseActivity implements View.OnClickLi
 
     private void initData() {
         User user = status.getUser();
-        Glide.with(this).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation(this))).into(iv_head);
+        Glide.with(this).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation())).into(iv_head);
         tv_head_name.setText(user.getName());
         tv_head_desc.setText(DateUtils.getShortTime(status.getCreated_at()) + " 来自" + Html.fromHtml(status.getSource()));
 

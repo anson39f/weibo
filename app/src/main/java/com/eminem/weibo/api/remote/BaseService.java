@@ -26,10 +26,20 @@ public interface BaseService {
                                            @Query("nickName") String nickName,
                                            @Query("email") String email, @Part MultipartBody.Part file);
 
+    @Multipart
+    @POST("weibo/user/updateAvatar")
+    Observable<ResData<User>> updateAvatar(@Query("username") String account, @Part MultipartBody.Part file);
+
+
+    @POST("weibo/user/updateNickname")
+    Observable<ResData<User>> updateNickname(@Query("username") String account, @Query("nickName") String nickName);
+
 
     @POST("weibo/user/login")
     Observable<ResData<User>> loginUser(@Query("username") String account,
                                         @Query("password") String pasword);
+    @POST("weibo/user/get")
+    Observable<ResData<User>> getUser(@Query("username") String account);
 
     @POST("community/user/password")
     Observable<ResData<Void>> updateUserPassword(@Query("username") String account, @Query(

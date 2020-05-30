@@ -113,7 +113,7 @@ public class MessageDetailsAdapter extends BaseAdapter {
         //如无正文图片，则引入用户头像
         final String quoteAvatar = quoteUser.getAvatar_hd();//user头像
 
-        Glide.with(context).load(commentAvatar).apply(bitmapTransform(new CropCircleTransformation(context)).placeholder(R.drawable.head_pistion)).into(holder.iv_head);
+        Glide.with(context).load(commentAvatar).apply(bitmapTransform(new CropCircleTransformation()).placeholder(R.drawable.head_pistion)).into(holder.iv_head);
         holder.tv_head_name.setText(commentUserName);
         holder.tv_head_desc.setText(DateUtils.getShortTime(commentCreatedAt) + " 来自 " + Html.fromHtml(commentSource));
         holder.tv_message.setText(StringUtils.getWeiboContent(context, holder.tv_message, commentText));

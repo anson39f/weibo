@@ -23,7 +23,6 @@ import java.util.List;
 
 
 public class BaseApplication extends Application {
-    private static User user;
     public User currentUser;
     private static BaseApplication mApplication;
 
@@ -119,13 +118,5 @@ public class BaseApplication extends Application {
         });
         AndroidCrash.getInstance().setCrashReporter(reporter).init(this);
 
-    }
-
-    public static User getUser() {
-        return user;
-    }
-
-    public static void setUser(User user) {
-        BaseApplication.user = user;
     }
 }

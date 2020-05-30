@@ -38,6 +38,12 @@ public class BaseAppApi {
         RetrofitService.request(getBaseService().loginUser(name, MD5Util.MD5(pasword)), listener);
     }
 
+    public static void getUser(String name,
+                               HttpListener<User>
+                                       listener) {
+        RetrofitService.request(getBaseService().getUser(name), listener);
+    }
+
     //注册
     public static void register(IBaseView view, String url, String account, String passwd,
                                 String name,
@@ -48,6 +54,22 @@ public class BaseAppApi {
         MultipartBody.Part part = MultipartBody.Part.createFormData("images", file.getName(), RequestBody.create(MediaType.parse("image/jpeg"), file));
         RetrofitService.request(getBaseService().registerUser(account, MD5Util.MD5(passwd), name,
                 email, part), listener);
+    }
+
+    //更新头像
+    public static void updateAvatar(String url, String account,
+                                    HttpListener<User>
+                                            listener) {
+        File file = new File(url);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("images", file.getName(), RequestBody.create(MediaType.parse("image/jpeg"), file));
+        RetrofitService.request(getBaseService().updateAvatar(account, part), listener);
+    }
+
+    //更新昵称
+    public static void updateNickname(String account, String nickName,
+                                      HttpListener<User>
+                                              listener) {
+        RetrofitService.request(getBaseService().updateNickname(account, nickName), listener);
     }
 
     public static void modify(IBaseView view, String type, String account,

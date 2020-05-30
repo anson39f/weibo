@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.support.v4.app.Fragment;
 
 import java.io.Serializable;
 
@@ -35,6 +36,10 @@ public class ActivityTools {
     public static void startToNextActivityForResult(Activity activity, Class<?> nextActivity, int requestCode) {
         Intent intent = new Intent(activity, nextActivity);
         activity.startActivityForResult(intent, requestCode);
+    }
+    public static void startToNextActivityForResult(Fragment fragment, Class<?> nextActivity, int requestCode) {
+        Intent intent = new Intent(fragment.getContext(), nextActivity);
+        fragment.startActivityForResult(intent, requestCode);
     }
 
     /**

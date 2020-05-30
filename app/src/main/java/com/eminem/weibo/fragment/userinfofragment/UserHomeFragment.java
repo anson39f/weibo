@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,6 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 
 /**
- * Created by eminem on 2017/7/20.
  */
 
 public class UserHomeFragment extends Fragment {
@@ -47,7 +45,7 @@ public class UserHomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         screenName = getActivity().getIntent().getStringExtra("screen_name");
-        Log.d(TAG, screenName);
+//        Log.d(TAG, screenName);
         initList();
         loadStatuses(1);
         return view;

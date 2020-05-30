@@ -1,6 +1,7 @@
 package com.eminem.weibo.bean;
 
 
+import com.eminem.weibo.base.config.UriProvider;
 import com.google.gson.annotations.SerializedName;
 
 public class User extends BaseBean {
@@ -15,7 +16,6 @@ public class User extends BaseBean {
     private String location;
     @SerializedName("email")
     private String description;
-    @SerializedName("fileUrl")
     private String url;
     private String profile_image_url;
     private String cover_image_phone;
@@ -39,6 +39,7 @@ public class User extends BaseBean {
     private int ptype;
     private boolean allow_all_comment;
     private String avatar_large;
+    @SerializedName("fileUrl")
     private String avatar_hd;
     private String verified_reason;
     private String verified_trade;
@@ -306,7 +307,7 @@ public class User extends BaseBean {
     }
 
     public String getAvatar_hd() {
-        return avatar_hd;
+        return UriProvider.API_HOST + "weibo/" + avatar_hd;
     }
 
     public void setAvatar_hd(String avatar_hd) {
