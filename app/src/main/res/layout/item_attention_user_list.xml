@@ -42,9 +42,10 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:gravity="right"
-            android:text=""
+            android:text="取消关注"
             android:textColor="@color/orange"
-            android:textSize="@dimen/text_15"/>
+            android:textSize="@dimen/text_15"
+            android:visibility="visible"/>
 
         <ImageView
             android:layout_width="24dp"

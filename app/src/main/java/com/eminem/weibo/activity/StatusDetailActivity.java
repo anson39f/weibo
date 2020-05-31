@@ -26,7 +26,10 @@ import com.eminem.weibo.R;
 import com.eminem.weibo.adapter.StatusCommentAdapter;
 import com.eminem.weibo.adapter.StatusGridImgsAdapter;
 import com.eminem.weibo.api.ResData;
+import com.eminem.weibo.api.remote.BaseAppApi;
 import com.eminem.weibo.api.remote.BaseService;
+import com.eminem.weibo.base.net.ApiException;
+import com.eminem.weibo.base.net.HttpListener;
 import com.eminem.weibo.base.net.RetrofitService;
 import com.eminem.weibo.bean.Comment;
 import com.eminem.weibo.bean.CommentsResponse;
@@ -98,6 +101,7 @@ public class StatusDetailActivity extends BaseActivity implements View.OnClickLi
     private CommentsAPI mCommentsAPI;
     private int curPage = 1;
     private SwipeToLoadLayout swipeToLoadLayout;
+    private User user;
 
 
     @Override
@@ -222,10 +226,11 @@ public class StatusDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initData() {
-        User user = status.getUser();
+        user = status.getUser();
         Glide.with(this).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation())).into(iv_head);
         tv_head_name.setText(user.getName());
-//        tv_head_desc.setText(DateUtils.getShortTime(status.getCreated_at()) + " 来自" + Html.fromHtml(status.getSource()));
+        //        tv_head_desc.setText(DateUtils.getShortTime(status.getCreated_at()) + " 来自" + Html.fromHtml(status.getSource()));
+        tv_head_desc.setText(status.getCreated_at());
 
         setImages(status, include_status_image, gv_images, iv_image);
 
@@ -249,11 +254,11 @@ public class StatusDetailActivity extends BaseActivity implements View.OnClickLi
         }
 
         // listView headerView - 添加至列表中作为header的菜单栏
-        rb_retweets.setText("转发 " + status.getReposts_count());
+        rb_retweets.setText("评分 " + status.getReposts_count());
         rb_comments.setText("评论 " + status.getComments_count());
         rb_likes.setText("赞 " + status.getAttitudes_count());
 
-        tv_share_bottom.setText(status.getReposts_count() == 0 ? "转发" : status.getReposts_count() + "");
+        tv_share_bottom.setText(status.getReposts_count() == 0 ? "评分" : status.getReposts_count() + "");
         tv_comment_bottom.setText(status.getComments_count() == 0 ? "评论" : status.getComments_count() + "");
         tv_like_bottom.setText(status.getAttitudes_count() == 0 ? "赞" : status.getAttitudes_count() + "");
 
@@ -340,13 +345,30 @@ public class StatusDetailActivity extends BaseActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.ll_comment_bottom:
                 Intent intent = new Intent(StatusDetailActivity.this, WriteCommentActivity.class);
+                intent.putExtra("status", status);
                 startActivity(intent);
                 break;
             case R.id.ll_like_bottom:
-                ToastUtils.showToast(StatusDetailActivity.this, "点赞api未开放", Toast.LENGTH_SHORT);
+                BaseAppApi.like(user.getIdstr(), status.getId() + "", new HttpListener<Void>() {
+                    @Override
+                    public void onSuccess(Void response) {
+                        ToastUtils.showToast(StatusDetailActivity.this, "点赞成功", Toast.LENGTH_SHORT);
+                        rb_likes.setText("赞 " + status.getAttitudes_count() + 1);
+                    }
+
+                    @Override
+                    public void onError(ApiException e) {
+                        super.onError(e);
+                        ToastUtils.showToast(StatusDetailActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                    }
+                });
+                //                ToastUtils.showToast(StatusDetailActivity.this, "点赞api未开放", Toast.LENGTH_SHORT);
                 break;
             case R.id.ll_share_bottom:
-                ToastUtils.showToast(StatusDetailActivity.this, "转发", Toast.LENGTH_SHORT);
+                Intent intent1 = new Intent(this, WriteFractiontActivity.class);
+                intent1.putExtra("status", status);
+                startActivity(intent1);
+                //                ToastUtils.showToast(StatusDetailActivity.this, "评分", Toast.LENGTH_SHORT);
                 break;
         }
 

@@ -1,5 +1,6 @@
 package com.eminem.weibo.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.eminem.weibo.BaseFragment;
 import com.eminem.weibo.R;
+import com.eminem.weibo.activity.NewUserInfoActivity;
 import com.eminem.weibo.adapter.UserListAdapter;
 import com.eminem.weibo.api.ResData;
 import com.eminem.weibo.api.remote.BaseService;
@@ -76,7 +78,16 @@ public class SearchUserFragment extends BaseFragment {
                 swipeToLoadLayout.setLoadingMore(false);
             }
         });
+        adapter.setOnItemClickListener(new UserListAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position, User item) {
 
+                String screen_name = item.getIdstr();
+                Intent intent = new Intent(activity, NewUserInfoActivity.class);
+                intent.putExtra("screen_name", screen_name);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initData(String key) {

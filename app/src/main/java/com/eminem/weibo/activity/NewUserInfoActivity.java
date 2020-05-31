@@ -9,8 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,19 +18,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.eminem.weibo.BaseApplication;
 import com.eminem.weibo.R;
 import com.eminem.weibo.adapter.UserInfoAdapter;
+import com.eminem.weibo.api.remote.BaseAppApi;
+import com.eminem.weibo.base.net.ApiException;
+import com.eminem.weibo.base.net.HttpListener;
 import com.eminem.weibo.bean.User;
-import com.eminem.weibo.constants.AccessTokenKeeper;
-import com.eminem.weibo.fragment.userinfofragment.UserHomeFragment;
-import com.eminem.weibo.utils.AsyncHttpUtils;
+import com.eminem.weibo.fragment.userinfofragment.UserPhotoFragment;
+import com.eminem.weibo.fragment.userinfofragment.UserWeiboFragment;
+import com.eminem.weibo.utils.ToastUtils;
 import com.eminem.weibo.widget.ImageLoader;
-import com.google.gson.Gson;
-import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.TextHttpResponseHandler;
-import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
-import cz.msebera.android.httpclient.Header;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
@@ -98,6 +97,7 @@ public class NewUserInfoActivity extends AppCompatActivity {
             // 如果是查看他人,调用获取用户信息接口
             loadUserInfo();
         }
+        invalidateOptionsMenu();
     }
 
     private void setUserInfo() {
@@ -107,31 +107,30 @@ public class NewUserInfoActivity extends AppCompatActivity {
         tv_user_name.setText(user.getName());
         Glide.with(this).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation()).placeholder(R.drawable.head_pistion)).into(iv_user_head);
         ImageLoader.loadImage(Glide.with(this), backdrop, user.getAvatar_hd());
-        tv_user_fans.setText("关注  " + user.getFriends_count() + " | " + "粉丝  " + user.getFollowers_count());
+        //        tv_user_fans.setText("关注  " + user.getFriends_count() + " | " + "粉丝  " + user.getFollowers_count());
         tv_user_desc.setText("简介:" + user.getDescription());
     }
 
     private void loadUserInfo() {
-        Oauth2AccessToken mAccessToken = AccessTokenKeeper.readAccessToken(this);
-        String token = mAccessToken.getToken();
-        RequestParams params = new RequestParams();
-        params.put("access_token", token);
-        params.put("screen_name", screenName);
+        BaseAppApi.getUser(isCurrentUser ? user.getIdstr() : screenName,
+                new HttpListener<User>() {
+                    @Override
+                    public void onStart() {
+                        super.onStart();
+                    }
 
-        AsyncHttpUtils.get("users/show.json", params, new TextHttpResponseHandler() {
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d(TAG, "fail" + responseString);
-            }
+                    @Override
+                    public void onError(ApiException e) {
+                        super.onError(e);
+                        ToastUtils.showShortToast(getContext(), e.getMessage());
+                    }
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                user = new Gson().fromJson(responseString, User.class);
-                Log.d(TAG, "success" + responseString);
-
-                setUserInfo();
-            }
-        });
+                    @Override
+                    public void onSuccess(User response) {
+                        user = response;
+                        setUserInfo();
+                    }
+                });
     }
 
 
@@ -158,20 +157,54 @@ public class NewUserInfoActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.orange));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setupViewPager(ViewPager viewPager) {
         UserInfoAdapter adapter = new UserInfoAdapter(getSupportFragmentManager());
-        adapter.addFragment(new UserHomeFragment(), "主页");
-        adapter.addFragment(new UserHomeFragment(), "微博");
-        adapter.addFragment(new UserHomeFragment(), "相册");
+        //        adapter.addFragment(new UserHomeFragment(), "主页");
+        adapter.addFragment(new UserWeiboFragment(), "微博");
+        adapter.addFragment(new UserPhotoFragment(), "相册");
         viewPager.setAdapter(adapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_actions, menu);
+        if (!isCurrentUser) {
+            getMenuInflater().inflate(R.menu.toolbar_actions, menu);
+        }
         return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_star:
+                User currentUser = BaseApplication.getContext().currentUser;
+                BaseAppApi.attention(currentUser.getIdstr(), screenName, new HttpListener<Void>() {
+                    @Override
+                    public void onSuccess(Void response) {
+
+                        ToastUtils.showShortToast(NewUserInfoActivity.this, "关注成功");
+                    }
+
+                    @Override
+                    public void onError(ApiException e) {
+                        super.onError(e);
+                        ToastUtils.showShortToast(NewUserInfoActivity.this, e.getMessage());
+                    }
+                });
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public String getScreenName() {
+        return isCurrentUser ? user.getIdstr() : screenName;
     }
 }

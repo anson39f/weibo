@@ -88,5 +88,37 @@ public class BaseAppApi {
         RetrofitService.request(getBaseService().comment(accountId, content, weiboId), listener);
     }
 
+    //点赞
+    public static void like(String accountId,
+                            String weiboId,
+                            HttpListener<Void>
+                                    listener) {
+        RetrofitService.request(getBaseService().like(accountId, weiboId), listener);
+    }
+
+    //发评分
+    public static void fraction(String accountId,
+                                String weiboId,
+                                String fraction,
+                                HttpListener<Void>
+                                        listener) {
+        RetrofitService.request(getBaseService().fraction(accountId, fraction, weiboId), listener);
+    }
+
+    //关注
+    public static void attention(String accountId,
+                                 String followedUsername,
+                                 HttpListener<Void>
+                                         listener) {
+        RetrofitService.request(getBaseService().attention(accountId, followedUsername), listener);
+    }
+
+    //取消关注
+    public static void unAttention(String accountId,
+                                 String followedUsername,
+                                 HttpListener<Void>
+                                         listener) {
+        RetrofitService.request(getBaseService().unAttention(accountId, followedUsername), listener);
+    }
 
 }

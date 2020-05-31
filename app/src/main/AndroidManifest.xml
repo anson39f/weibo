@@ -47,6 +47,10 @@
         <activity android:name=".base.ui.activity.EnvSettingActivity"/>
         <activity android:name=".activity.SearchActivity"/>
         <activity android:name=".activity.WriteCommentActivity"/>
+        <activity android:name=".activity.WriteFractiontActivity"/>
+        <activity android:name=".activity.MyAttentionActivity"/>
+        <activity android:name=".activity.MyFansActivity"/>
+        <activity android:name=".activity.CategoryWeiboActivity"/>
     </application>
 
 </manifest>

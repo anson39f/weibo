@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.eminem.weibo.BaseApplication;
 import com.eminem.weibo.BaseFragment;
 import com.eminem.weibo.R;
 import com.eminem.weibo.activity.SearchActivity;
@@ -59,19 +60,19 @@ public class WeiboFragment extends BaseFragment {
         swipeToLoadLayout = (SwipeToLoadLayout) view.findViewById(R.id.swipeToLoadLayout);
         lvHome = (ListView) view.findViewById(R.id.swipe_target);
         new TitleBuilder(view)
-//                .setLeftImage(R.drawable.title_camre)
-//                .setRightImage(R.drawable.title_sacn)
+                //                .setLeftImage(R.drawable.title_camre)
+                //                .setRightImage(R.drawable.title_sacn)
                 .setTitleText("首页")
                 .setRightOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        ToastUtils.showToast(activity, "扫一扫", Toast.LENGTH_LONG);
+                        //                        ToastUtils.showToast(activity, "扫一扫", Toast.LENGTH_LONG);
                     }
                 })
                 .setLeftOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        ToastUtils.showToast(activity, "相机", Toast.LENGTH_SHORT);
+                        //                        ToastUtils.showToast(activity, "相机", Toast.LENGTH_SHORT);
                     }
                 });
 
@@ -113,7 +114,7 @@ public class WeiboFragment extends BaseFragment {
         gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-//                ToastUtils.showToast(getActivity(), "双击事件", Toast.LENGTH_LONG);
+                //                ToastUtils.showToast(getActivity(), "双击事件", Toast.LENGTH_LONG);
                 lvHome.setSelection(0);
                 swipeToLoadLayout.setOnRefreshListener(new OnRefreshListener() {
                     @Override
@@ -131,7 +132,10 @@ public class WeiboFragment extends BaseFragment {
     }
 
     private void initData(final int page) {
-        RetrofitService.getService(BaseService.class).search("").subscribeOn(Schedulers.io())
+        if (BaseApplication.getContext().currentUser == null) {
+            return;
+        }
+        RetrofitService.getService(BaseService.class).followedUserNewWeibo(BaseApplication.getContext().currentUser.getIdstr()).subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 /*回调线程*/
                 .observeOn(AndroidSchedulers.mainThread())

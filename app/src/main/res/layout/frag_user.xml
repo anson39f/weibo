@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_gray"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_gray"
+              android:orientation="vertical">
 
-    <include layout="@layout/include_titlebar" />
+    <include layout="@layout/include_titlebar"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_gravity="center_vertical"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"/>
 
                 <RelativeLayout
                     android:id="@+id/rl_content"
@@ -43,14 +43,14 @@
 
                     <TextView
                         android:id="@+id/tv_subhead"
-                        style="@style/TextViewSubhead" />
+                        style="@style/TextViewSubhead"/>
 
                     <TextView
                         android:id="@+id/tv_caption"
                         style="@style/TextViewCaption"
                         android:layout_below="@id/tv_subhead"
                         android:layout_marginTop="8dp"
-                        android:textColor="@color/txt_gray" />
+                        android:textColor="@color/txt_gray"/>
 
                     <ImageView
                         android:id="@+id/iv_detail"
@@ -58,27 +58,29 @@
                         android:layout_height="24dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/rightarrow" />
+                        android:src="@drawable/rightarrow"/>
                 </RelativeLayout>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/divider_gray" />
+                android:background="@color/divider_gray"/>
 
-            <include layout="@layout/include_userinfo_interaction" />
+            <include
+                layout="@layout/include_userinfo_interaction"
+                android:visibility="gone"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/divider_gray" />
+                android:background="@color/divider_gray"/>
 
             <com.eminem.weibo.widget.WrapHeightListView
                 android:id="@+id/lv_user_items"
                 style="@style/ListViewCommon"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"/>
         </LinearLayout>
     </ScrollView>
 

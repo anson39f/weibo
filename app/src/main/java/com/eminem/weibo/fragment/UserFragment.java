@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.eminem.weibo.BaseApplication;
 import com.eminem.weibo.BaseFragment;
 import com.eminem.weibo.R;
+import com.eminem.weibo.activity.MyAttentionActivity;
+import com.eminem.weibo.activity.MyFansActivity;
 import com.eminem.weibo.activity.NewUserInfoActivity;
 import com.eminem.weibo.activity.SettingActivity;
 import com.eminem.weibo.activity.UserInfoEditActivity;
@@ -82,12 +84,12 @@ public class UserFragment extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-//        Oauth2AccessToken mAccessToken = AccessTokenKeeper.readAccessToken(activity);
-//        String token = mAccessToken.getToken();
-//        String uid = mAccessToken.getUid();
-//        RequestParams params = new RequestParams();
-//        params.put("access_token", token);
-//        params.put("uid", uid);
+        //        Oauth2AccessToken mAccessToken = AccessTokenKeeper.readAccessToken(activity);
+        //        String token = mAccessToken.getToken();
+        //        String uid = mAccessToken.getUid();
+        //        RequestParams params = new RequestParams();
+        //        params.put("access_token", token);
+        //        params.put("uid", uid);
         if (!hidden) {
             getUser();
         }
@@ -122,7 +124,7 @@ public class UserFragment extends BaseFragment {
     private void initView() {
         new TitleBuilder(view)
                 .setTitleText("我")
-                .setLeftText("添加好友")
+//                .setLeftText("添加好友")
                 .setRightText("设置")
                 .setRightOnClickListener(new View.OnClickListener() {
                     @Override
@@ -155,21 +157,21 @@ public class UserFragment extends BaseFragment {
             public void onClick(int position, UserItem item) {
                 if (item.getSubhead().equals("编辑资料")) {
                     ActivityTools.startToNextActivityForResult(UserFragment.this, UserInfoEditActivity.class, 1);
+                } else if (item.getSubhead().equals("我的关注")) {
+                    ActivityTools.startToNextActivityForResult(UserFragment.this,
+                            MyAttentionActivity.class, 2);
+                } else if (item.getSubhead().equals("我的粉丝")) {
+                    ActivityTools.startToNextActivityForResult(UserFragment.this,
+                            MyFansActivity.class, 3);
                 }
             }
         });
     }
 
     private void setItem() {
-        userItems.add(new UserItem(false, R.drawable.push_icon_app_small_1, "新的朋友", ""));
-        userItems.add(new UserItem(false, R.drawable.push_icon_app_small_2, "微博等级", "Lv13"));
+        userItems.add(new UserItem(false, R.drawable.push_icon_app_small_1, "我的关注", ""));
+        userItems.add(new UserItem(false, R.drawable.push_icon_app_small_2, "我的粉丝", ""));
         userItems.add(new UserItem(false, R.drawable.push_icon_app_small_3, "编辑资料", ""));
-        userItems.add(new UserItem(true, R.drawable.push_icon_app_small_4, "我的相册", "(18)"));
-        userItems.add(new UserItem(false, R.drawable.push_icon_app_small_5, "我的点评", ""));
-        userItems.add(new UserItem(false, R.drawable.push_icon_app_small_4, "我的赞", "(32)"));
-        userItems.add(new UserItem(true, R.drawable.push_icon_app_small_3, "微博支付", ""));
-        userItems.add(new UserItem(false, R.drawable.push_icon_app_small_2, "微博运动", "步数、卡路里、跑步轨迹"));
-        userItems.add(new UserItem(true, R.drawable.push_icon_app_small_1, "更多", "收藏、名片"));
         adapter.notifyDataSetChanged();
     }
 

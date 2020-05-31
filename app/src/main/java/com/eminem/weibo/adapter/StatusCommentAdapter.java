@@ -8,15 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.eminem.weibo.R;
 import com.eminem.weibo.bean.Comment;
 import com.eminem.weibo.bean.User;
-import com.eminem.weibo.utils.DateUtils;
 import com.eminem.weibo.utils.StringUtils;
-import com.eminem.weibo.utils.ToastUtils;
 
 import java.util.List;
 
@@ -71,14 +68,15 @@ public class StatusCommentAdapter extends BaseAdapter {
         final User user = comment.getUser();
         Glide.with(context).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation())).into(holder.iv_head);
         holder.tv_head_name.setText(user.getName());
-        holder.tv_head_desc.setText(DateUtils.getShortTime(comment.getCreated_at()));
+//        holder.tv_head_desc.setText(DateUtils.getShortTime(comment.getCreated_at()));
+        holder.tv_head_desc.setText(comment.getCreated_at());
         SpannableString weiboContent = StringUtils.getWeiboContent(context, holder.tv_comment, comment.getText());
         holder.tv_comment.setText(weiboContent);
         holder.ll_comments.setOnClickListener(new View.OnClickListener
                 () {
             @Override
             public void onClick(View v) {
-                ToastUtils.showToast(context, "回复评论", Toast.LENGTH_SHORT);
+//                ToastUtils.showToast(context, "回复评论", Toast.LENGTH_SHORT);
             }
         });
 

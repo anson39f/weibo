@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_card_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/bg_white2gray_sel"
     android:orientation="vertical">
     <!--用户信息  -->
@@ -22,7 +22,7 @@
     <include
         android:id="@+id/include_status_image"
         layout="@layout/include_status_image"
-        android:visibility="visible" />
+        android:visibility="gone" />
     <!--转发布局-->
     <include
         layout="@layout/include_retweeted_status"

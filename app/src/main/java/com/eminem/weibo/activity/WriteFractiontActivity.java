@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WriteCommentActivity extends AppCompatActivity {
+public class WriteFractiontActivity extends AppCompatActivity {
 
     @BindView(R.id.content)
     EditTextWithDel content;
@@ -32,15 +32,15 @@ public class WriteCommentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_write_comment);
+        setContentView(R.layout.activity_write_fraction);
         ButterKnife.bind(this);
         new TitleBuilder(this)
-                .setTitleText("发布评论")
+                .setTitleText("发布评分")
                 .setLeftImage(R.drawable.navigationbar_back)
                 .setLeftOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WriteCommentActivity.this.finish();
+                        WriteFractiontActivity.this.finish();
                     }
                 });
     }
@@ -49,12 +49,12 @@ public class WriteCommentActivity extends AppCompatActivity {
     public void onViewClicked() {
         String comment = content.getText().toString().trim();
         if (TextUtils.isEmpty(comment)) {
-            ToastUtils.showShortToast(this, "请输入评论");
+            ToastUtils.showShortToast(this, "请输入评分");
             return;
         }
         user = BaseApplication.getContext().currentUser;
         Status status = (Status) getIntent().getSerializableExtra("status");
-        BaseAppApi.comment(user.getIdstr(), comment, status.getId() + "",
+        BaseAppApi.fraction(user.getIdstr(), status.getId() + "", comment,
                 new HttpListener<Void>() {
                     @Override
                     public void onStart() {
@@ -64,13 +64,13 @@ public class WriteCommentActivity extends AppCompatActivity {
                     @Override
                     public void onError(ApiException e) {
                         super.onError(e);
-                        ToastUtils.showShortToast(WriteCommentActivity.this, e.getMessage());
+                        ToastUtils.showShortToast(WriteFractiontActivity.this, e.getMessage());
                     }
 
                     @Override
                     public void onSuccess(Void response) {
                         setResult(RESULT_OK);
-                        ToastUtils.showShortToast(WriteCommentActivity.this, "发布成功");
+                        ToastUtils.showShortToast(WriteFractiontActivity.this, "发布成功");
                         finish();
                     }
                 });

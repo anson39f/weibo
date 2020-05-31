@@ -20,6 +20,10 @@ import com.eminem.weibo.R;
 import com.eminem.weibo.activity.ImageBrowserActivity;
 import com.eminem.weibo.activity.StatusDetailActivity;
 import com.eminem.weibo.activity.WriteCommentActivity;
+import com.eminem.weibo.activity.WriteFractiontActivity;
+import com.eminem.weibo.api.remote.BaseAppApi;
+import com.eminem.weibo.base.net.ApiException;
+import com.eminem.weibo.base.net.HttpListener;
 import com.eminem.weibo.bean.PicUrls;
 import com.eminem.weibo.bean.Status;
 import com.eminem.weibo.bean.User;
@@ -34,7 +38,6 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 /**
- * Created by eminem on 2017/4/28.
  * 微博首页adapter
  */
 
@@ -105,15 +108,15 @@ public class StatusAdapter extends BaseAdapter {
         final User user = status.getUser();
         Glide.with(context).load(user.getAvatar_hd()).apply(bitmapTransform(new CropCircleTransformation()).placeholder(R.drawable.head_pistion)).into(holder.iv_head);
         holder.tv_head_name.setText(user.getName());
-//        if (status.getSource().isEmpty()) {
-//            holder.tv_head_desc.setText(DateUtils.getShortTime(status.getCreated_at()));
-//        } else {
-//            holder.tv_head_desc.setText(DateUtils.getShortTime(status.getCreated_at()) + " 来自 " + Html.fromHtml(status.getSource()));
-//        }
+        //        if (status.getSource().isEmpty()) {
+        //            holder.tv_head_desc.setText(DateUtils.getShortTime(status.getCreated_at()));
+        //        } else {
+        //            holder.tv_head_desc.setText(DateUtils.getShortTime(status.getCreated_at()) + " 来自 " + Html.fromHtml(status.getSource()));
+        //        }
         holder.tv_head_desc.setText(status.getCreated_at());
         //微博正文
         holder.tv_content.setText(StringUtils.getWeiboContent(context, holder.tv_content, status.getContent()));
-        setImages(status, holder.include_status_image, holder.gv_images, holder.iv_image);
+//        setImages(status, holder.include_status_image, holder.gv_images, holder.iv_image);
 
         //评分内容
         final Status retweeted_status = status.getRetweeted_status();
@@ -122,7 +125,7 @@ public class StatusAdapter extends BaseAdapter {
             holder.include_retweeted_status.setVisibility(View.VISIBLE);
             String retweetedContent = "@" + retUser.getName() + ":" + retweeted_status.getContent();
             holder.tv_retweeted_content.setText(StringUtils.getWeiboContent(context, holder.tv_retweeted_content, retweetedContent));
-            setImages(retweeted_status, holder.include_retweeted_status_image, holder.gv_retweeted_images, holder.iv_retweeted_image);
+//            setImages(retweeted_status, holder.include_retweeted_status_image, holder.gv_retweeted_images, holder.iv_retweeted_image);
         } else {
             holder.include_retweeted_status.setVisibility(View.GONE);
         }
@@ -132,21 +135,39 @@ public class StatusAdapter extends BaseAdapter {
         holder.ll_share_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showToast(context, "评分", Toast.LENGTH_LONG);
+                Intent intent = new Intent(context, WriteFractiontActivity.class);
+                intent.putExtra("status", status);
+                context.startActivity(intent);
+//                ToastUtils.showToast(context, "评分", Toast.LENGTH_LONG);
             }
         });
         holder.tv_like_bottom.setText(status.getAttitudes_count() == 0 ? "赞" : status.getAttitudes_count() + "");
         holder.ll_like_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showToast(context, "点赞", Toast.LENGTH_LONG);
+                BaseAppApi.like(user.getIdstr(), status.getId() + "", new HttpListener<Void>() {
+                    @Override
+                    public void onSuccess(Void response) {
+                        ToastUtils.showToast(context, "点赞成功", Toast.LENGTH_SHORT);
+                        holder.tv_like_bottom.setText(status.getAttitudes_count() == 0 ? "赞" :
+                                status.getAttitudes_count() + 1 + "");
+                        status.setAttitudes_count(status.getAttitudes_count() + 1);
+                        notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onError(ApiException e) {
+                        super.onError(e);
+                        ToastUtils.showToast(context, e.getMessage(), Toast.LENGTH_SHORT);
+                    }
+                });
             }
         });
         holder.tv_comment_bottom.setText(status.getComments_count() == 0 ? "评论" : status.getComments_count() + "");
         holder.ll_comment_bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showToast(context, "评论", Toast.LENGTH_LONG);
+                //                ToastUtils.showToast(context, "评论", Toast.LENGTH_LONG);
                 if (status.getComments_count() > 0) {
                     Intent intent = new Intent(context, StatusDetailActivity.class);
                     intent.putExtra("status", status);

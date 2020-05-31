@@ -7,6 +7,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
+import android.os.Handler;
 import android.os.Process;
 import android.os.StrictMode;
 import android.util.Log;
@@ -117,6 +118,22 @@ public class BaseApplication extends Application {
             }
         });
         AndroidCrash.getInstance().setCrashReporter(reporter).init(this);
+
+    }
+
+    /**
+     * 关闭app
+     */
+    public void closeApp() {
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+
+                Process.killProcess(Process.myPid());
+                System.exit(0);
+            }
+        }, 300);
 
     }
 }

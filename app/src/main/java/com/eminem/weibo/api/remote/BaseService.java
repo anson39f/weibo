@@ -2,8 +2,10 @@ package com.eminem.weibo.api.remote;
 
 
 import com.eminem.weibo.api.ResData;
+import com.eminem.weibo.bean.Attention;
 import com.eminem.weibo.bean.Category;
 import com.eminem.weibo.bean.Comment;
+import com.eminem.weibo.bean.Message;
 import com.eminem.weibo.bean.Status;
 import com.eminem.weibo.bean.User;
 
@@ -56,8 +58,17 @@ public interface BaseService {
     @GET("weibo/weibo/search")
     Observable<ResData<List<Status>>> search(@Query("keys") String keys);
 
+    @GET("weibo/weibo/followedUserNewWeibo")
+    Observable<ResData<List<Status>>> followedUserNewWeibo(@Query("username") String username);
+
     @GET("weibo/user/search")
-    Observable<ResData<List<User>>> searchUser(@Query("username") String keys);
+    Observable<ResData<List<User>>> searchUser(@Query("nickname") String keys);
+
+    @GET("weibo/user/getAttention")
+    Observable<ResData<List<Attention>>> getAttention(@Query("username") String keys);
+
+    @GET("weibo/user/getFan")
+    Observable<ResData<List<Attention>>> getFan(@Query("username") String keys);
 
     @POST("weibo/weibo/getCategory")
     Observable<ResData<List<Category>>> getCategory();
@@ -70,4 +81,30 @@ public interface BaseService {
 
     @POST("weibo/weibo/findCommentByWeibo")
     Observable<ResData<List<Comment>>> findCommentByWeibo(@Query("weiboId") String weiboId);
+
+    @POST("weibo/weibo/like")
+    Observable<ResData<Void>> like(@Query("username") String username,
+                                   @Query("weiboId") String weiboId);
+
+    @POST("weibo/weibo/fraction")
+    Observable<ResData<Void>> fraction(@Query("username") String username,
+                                       @Query("fraction") String fraction,
+                                       @Query("weiboId") String weiboId);
+
+    @GET("weibo/weibo/findByUser")
+    Observable<ResData<List<Status>>> findByUserWeibo(@Query("username") String username);
+
+    @GET("weibo/weibo/categoryNewWeibo")
+    Observable<ResData<List<Status>>> categoryNewWeibo(@Query("categoryId") String categoryId);
+
+    @GET("weibo/user/message")
+    Observable<ResData<List<Message>>> message(@Query("username") String username);
+
+    @GET("weibo/user/attention")
+    Observable<ResData<Void>> attention(@Query("username") String username, @Query(
+            "followedUsername") String followedUsername);
+
+    @GET("weibo/user/unAttention")
+    Observable<ResData<Void>> unAttention(@Query("username") String username, @Query(
+            "followedUsername") String followedUsername);
 }

@@ -175,8 +175,6 @@ public class RegisterFragment extends BaseRxFragment implements TakePhoto.TakeRe
                         @Override
                         public void onSuccess(User response) {
                             ToastUtils.showShortToast(mContext, "注册成功");
-                            getActivity().onBackPressed();
-
                         }
                     });
         }
