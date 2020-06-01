@@ -1,0 +1,128 @@
+package com.xds.weibo.fragment.userinfofragment;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
+import com.aspsine.swipetoloadlayout.OnRefreshListener;
+import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.xds.weibo.BaseApplication;
+import com.xds.weibo.BaseFragment;
+import com.xds.weibo.R;
+import com.xds.weibo.activity.NewUserInfoActivity;
+import com.xds.weibo.adapter.StatusAdapter;
+import com.xds.weibo.api.ResData;
+import com.xds.weibo.api.remote.BaseService;
+import com.xds.weibo.base.net.RetrofitService;
+import com.xds.weibo.bean.Status;
+import com.xds.weibo.bean.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.ButterKnife;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
+/**
+ */
+
+public class UserWeiboFragment extends BaseFragment {
+    private SwipeToLoadLayout swipeToLoadLayout;
+    private ListView lvHome;
+    private View view;
+    private StatusAdapter adapter;
+    private List<Status> statuses = new ArrayList<>();
+    private String key = "";
+
+    public static UserWeiboFragment newInstance(String key) {
+        UserWeiboFragment fragment = new UserWeiboFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("key", key);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        initView();
+        initData(key);
+        ButterKnife.bind(this, view);
+        return view;
+    }
+
+    private void initView() {
+        view = View.inflate(activity, R.layout.frag_search_weibo, null);
+        swipeToLoadLayout = (SwipeToLoadLayout) view.findViewById(R.id.swipeToLoadLayout);
+        lvHome = (ListView) view.findViewById(R.id.swipe_target);
+
+
+        adapter = new StatusAdapter(activity, statuses);
+        lvHome.setAdapter(adapter);
+        swipeToLoadLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initData("");
+                swipeToLoadLayout.setRefreshing(false);
+
+            }
+        });
+        swipeToLoadLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                initData(key);
+                swipeToLoadLayout.setLoadingMore(false);
+            }
+        });
+
+    }
+
+    private void initData(String key) {
+        String id = "";
+        if (getActivity() instanceof NewUserInfoActivity) {
+            id = ((NewUserInfoActivity) getActivity()).getScreenName();
+        } else {
+            User user = BaseApplication.getContext().currentUser;
+            id = user.getIdstr();
+        }
+        RetrofitService.getService(BaseService.class).findByUserWeibo(id).subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                /*回调线程*/
+                .observeOn(AndroidSchedulers.mainThread())
+                /*结果判断*/
+                .subscribe(new Observer<ResData<List<Status>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResData<List<Status>> listResData) {
+                        statuses.clear();
+                        statuses.addAll(listResData.result);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void searchKey(String newText) {
+        initData(newText);
+    }
+}

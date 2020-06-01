@@ -7,7 +7,7 @@
     android:paddingStart="16dp"
     android:paddingTop="4dp">
 
-    <com.eminem.weibo.widget.WrapHeightGridView
+    <com.xds.weibo.widget.WrapHeightGridView
         android:id="@+id/gv_images"
         style="@style/GridViewImages" />
 

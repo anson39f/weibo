@@ -7,13 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.eminem.weibo.activity.WriteCommentActivity">
+    tools:context="com.xds.weibo.activity.WriteCommentActivity">
 
 
     <include layout="@layout/include_titlebar"/>
 
 
-    <com.eminem.weibo.widget.EditTextWithDel
+    <com.xds.weibo.widget.EditTextWithDel
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <com.eminem.weibo.widget.PaperButton
+    <com.xds.weibo.widget.PaperButton
         android:id="@+id/submit"
         android:layout_width="match_parent"
         android:layout_height="40dp"

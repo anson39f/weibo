@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.eminem.weibo">
+    package="com.xds.weibo">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -8,16 +8,16 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".BaseApplication"
+        android:name="com.xds.weibo.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/ActionBarFullScreen">
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.SplashActivity">
+        <activity android:name="com.xds.weibo.activity.MainActivity" />
+        <activity android:name="com.xds.weibo.activity.LoginActivity" />
+        <activity android:name="com.xds.weibo.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,23 +35,20 @@
                     android:scheme="myapp" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.UserInfoEditActivity" />
-        <activity android:name=".activity.StatusDetailActivity" />
-        <activity android:name=".activity.UserInfoActivity" />
-        <activity android:name=".activity.NewUserInfoActivity" />
-        <activity android:name=".activity.MagicLoginActivity" />
-        <activity android:name=".activity.UnLoginActivity" />
-        <activity android:name=".activity.ImageBrowserActivity" />
-        <activity android:name=".activity.MessageDetailsActivity" />
-        <activity android:name=".activity.SettingActivity" />
-        <activity android:name=".activity.AddActivity" />
-        <activity android:name=".base.ui.activity.EnvSettingActivity" />
-        <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.WriteCommentActivity" />
-        <activity android:name=".activity.WriteFractiontActivity" />
-        <activity android:name=".activity.MyAttentionActivity" />
-        <activity android:name=".activity.MyFansActivity" />
-        <activity android:name=".activity.CategoryWeiboActivity" />
+        <activity android:name="com.xds.weibo.activity.UserInfoEditActivity" />
+        <activity android:name="com.xds.weibo.activity.StatusDetailActivity" />
+        <activity android:name="com.xds.weibo.activity.NewUserInfoActivity" />
+        <activity android:name="com.xds.weibo.activity.ImageBrowserActivity" />
+        <activity android:name="com.xds.weibo.activity.MessageDetailsActivity" />
+        <activity android:name="com.xds.weibo.activity.SettingActivity" />
+        <activity android:name="com.xds.weibo.activity.AddActivity" />
+        <activity android:name="com.xds.weibo.base.ui.activity.EnvSettingActivity" />
+        <activity android:name="com.xds.weibo.activity.SearchActivity" />
+        <activity android:name="com.xds.weibo.activity.WriteCommentActivity" />
+        <activity android:name="com.xds.weibo.activity.WriteFractiontActivity" />
+        <activity android:name="com.xds.weibo.activity.MyAttentionActivity" />
+        <activity android:name="com.xds.weibo.activity.MyFansActivity" />
+        <activity android:name="com.xds.weibo.activity.CategoryWeiboActivity" />
     </application>
 
 </manifest>

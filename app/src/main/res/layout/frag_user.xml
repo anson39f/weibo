@@ -76,7 +76,7 @@
                 android:layout_height="1px"
                 android:background="@color/divider_gray"/>
 
-            <com.eminem.weibo.widget.WrapHeightListView
+            <com.xds.weibo.widget.WrapHeightListView
                 android:id="@+id/lv_user_items"
                 style="@style/ListViewCommon"
                 android:layout_height="wrap_content"

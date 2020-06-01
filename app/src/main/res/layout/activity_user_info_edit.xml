@@ -85,7 +85,7 @@
                 android:layout_marginLeft="15dp"
                 android:src="@mipmap/iconmbile" />
 
-            <com.eminem.weibo.widget.ClearEditText
+            <com.xds.weibo.widget.ClearEditText
                 android:id="@+id/cENickName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -101,7 +101,7 @@
                 android:textSize="13sp" />
         </RelativeLayout>
 
-        <com.eminem.weibo.widget.PaperButton
+        <com.xds.weibo.widget.PaperButton
             android:id="@+id/next"
             android:layout_width="match_parent"
             android:layout_height="40dp"

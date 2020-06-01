@@ -28,7 +28,7 @@
                 android:layout_marginLeft="15dp"
                 android:src="@mipmap/iconmbile"/>
 
-            <com.eminem.weibo.widget.EditTextWithDel
+            <com.xds.weibo.widget.EditTextWithDel
                 android:id="@+id/userph"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -65,7 +65,7 @@
                 android:layout_marginLeft="15dp"
                 android:src="@mipmap/codeicon"/>
 
-            <com.eminem.weibo.widget.EditTextWithDel
+            <com.xds.weibo.widget.EditTextWithDel
                 android:id="@+id/userpass"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -101,7 +101,7 @@
                 android:layout_marginLeft="15dp"
                 android:src="@mipmap/codeicon"/>
 
-            <com.eminem.weibo.widget.EditTextWithDel
+            <com.xds.weibo.widget.EditTextWithDel
                 android:id="@+id/ed_confrim"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -118,7 +118,7 @@
                 android:textSize="13sp"/>
         </RelativeLayout>
 
-        <com.eminem.weibo.widget.PaperButton
+        <com.xds.weibo.widget.PaperButton
             android:id="@+id/bt_login"
             android:layout_width="match_parent"
             android:layout_height="40dp"

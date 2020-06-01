@@ -55,7 +55,7 @@
             android:textSize="@dimen/txtsize_body"/>
     </RadioGroup>
 
-    <com.eminem.weibo.widget.ClearEditText
+    <com.xds.weibo.widget.ClearEditText
         android:id="@+id/host"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

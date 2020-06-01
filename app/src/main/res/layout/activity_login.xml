@@ -8,7 +8,7 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-    <com.eminem.weibo.widget.MovingImageView
+    <com.xds.weibo.widget.MovingImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@mipmap/login_bg"
